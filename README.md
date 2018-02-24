@@ -19,10 +19,10 @@ docker build -t storeprice https://github.com/andre-carvalho/storeprice.git#cont
 ```
 Just run the image and your service is starting. Note that command use the set env parameters to send the database connection information for storeprice service.
 
-* --env HOST=<your ip or hostname>
-* --env PORT=<port>
-* --env DBUSER=<username>
-* --env DBPASS=<secret>
+* --env HOST=&lt;your ip or hostname&gt;
+* --env PORT=&lt;port&gt;
+* --env DBUSER=&lt;username&gt;
+* --env DBPASS=&lt;secret&gt;
 
 ```
 docker run --env HOST=IP --env PORT=5432 --env USDBUSERER=postgres --env DBPASS=postgres -d storeprice
