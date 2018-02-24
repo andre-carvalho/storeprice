@@ -1,27 +1,46 @@
-# Store Price
+# Docker file to Store Price project
 
-Reads bitcoin price from bitcointoyou API and store it into postgresql db.
+This docker is prepared to run the storeprice project. No has PostgreSQL database service. You need your our SGDB service.
 
 ### Prerequisites
 
-Your environment to run is compound of Python to execute the service and a PostgreSQL SGDB installed and running with a database created.
+Your environment to run this docker is the Docker Engine and a PostgreSQL service.
 
-- [Python 3](https://www.python.org/downloads/)
+- [Docker](https://docs.docker.com/install/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [libbitcointoyou](https://github.com/andre-carvalho/libbitcointoyou)
 
 ### Installing
 
-Use Docker to test it.
-Run this command to use a directory called docker in the branch container:
+Run this command to build your image:
 
 ```
 docker build -t storeprice https://github.com/andre-carvalho/storeprice.git#container:docker
 
 ```
-Just run the image and your service is starting.
+Just run the image and your service is starting. Note that command use the set env parameters to send the database connection information for storeprice service.
+
+* --env HOST=<your ip or hostname>
+* --env PORT=<port>
+* --env DBUSER=<username>
+* --env DBPASS=<secret>
+
 ```
-docker run -d storeprice
+docker run --env HOST=IP --env PORT=5432 --env USDBUSERER=postgres --env DBPASS=postgres -d storeprice
 ```
 
-Or build your test environment to develop or production.
+Or edit the database.ini inside the docker after it is running and set your connection informations.
+
+To procced that, you may run the docker:
+
+```
+docker run -it storeprice sh
+```
+And just run these commands:
+```
+echo "[postgresql]" > database.ini
+echo "host=localhost" >> database.ini
+echo "database=bitcointoyou" >> database.ini
+echo "user=postgres" >> database.ini
+echo "password=postgres" >> database.ini
+```
+
