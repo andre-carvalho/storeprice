@@ -25,7 +25,7 @@ Just run the image and your service is starting. Note that command use the set e
 * --env DBPASS=&lt;secret&gt;
 
 ```
-docker run --env HOST=IP --env PORT=5432 --env USDBUSERER=postgres --env DBPASS=postgres -d storeprice
+docker run --env HOST=IP --env PORT=5432 --env DBUSER=postgres --env DBPASS=postgres -d storeprice
 ```
 
 Or edit the database.ini inside the docker after it is running and set your connection informations.
