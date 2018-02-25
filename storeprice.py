@@ -1,6 +1,10 @@
-import bitcointoyou
 import postgresdb
 import time
+import os
+import sys
+# the libbitcointoyou dir contains bitcointoyou.py
+sys.path.append('./libbitcointoyou')
+import bitcointoyou
 
 """
 select tb1.id, tb1.last, tb2.sample_date, tb2.sample_time from (
