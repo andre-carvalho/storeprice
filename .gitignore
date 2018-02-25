@@ -1,0 +1,6 @@
+*.pyc
+*.ini
+.vscode/
+__pycache__/
+libbitcointoyou/
+
