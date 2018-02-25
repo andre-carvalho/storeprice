@@ -26,4 +26,4 @@ WORKDIR /usr/local/storeprice
 RUN cp database.ini.example database.ini
 
 # Start storeprice service
-#CMD ["python", "storeprice.py"]
+CMD ["python", "storeprice.py"]
