@@ -25,7 +25,7 @@ def app():
                 try:
                     db = postgresdb.bitcoinDAO()
                     db.connect()
-                    #db.insertData(tick)
+                    db.insertData(tick)
                 except Exception as error:
                     print(error)
                     print('The database connect parameters are ok?')
