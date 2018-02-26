@@ -22,8 +22,5 @@ RUN cd storeprice/  && \
 
 WORKDIR /usr/local/storeprice
 
-# Create the database config parameters from example file
-RUN cp database.ini.example database.ini
-
 # Start storeprice service
 CMD ["python", "storeprice.py"]
