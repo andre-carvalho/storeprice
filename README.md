@@ -26,7 +26,13 @@ Just run the image and your service is starting. Note that command use the set e
 * --env DBNAME=&lt;database name&gt;
 
 ```
-docker run --env HOST=IP -d storeprice
+docker run --env HOST=IP --env PORT=5432 --env DBNAME=bitcointoyou --env DBUSER=postgres --env DBPASS=postgres -d storeprice
+```
+
+You may run with less parameters, like this:
+
+```
+docker run --env HOST=IP --env DBNAME=dbname --env DBPASS=postgres -d storeprice
 ```
 
 Or run docker accessing the terminal and set your connection informations.
@@ -46,3 +52,12 @@ echo "user=postgres" >> database.ini
 echo "password=postgres" >> database.ini
 ```
 
+### Sample time
+
+Changing the sampler time via env var too. Adding the SAMPLE_TIME into run docker command:
+
+* --env SAMPLE_TIME=&lt;time in seconds&gt;
+
+```
+docker run --env HOST=IP --env SAMPLE_TIME=30 --env DBNAME=bitcointoyou -d storeprice
+```
