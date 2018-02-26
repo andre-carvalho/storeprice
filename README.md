@@ -23,22 +23,24 @@ Just run the image and your service is starting. Note that command use the set e
 * --env PORT=&lt;port&gt;
 * --env DBUSER=&lt;username&gt;
 * --env DBPASS=&lt;secret&gt;
+* --env DBNAME=&lt;database name&gt;
 
 ```
-docker run --env HOST=IP --env PORT=5432 --env DBUSER=postgres --env DBPASS=postgres -d storeprice
+docker run --env HOST=IP -d storeprice
 ```
 
-Or edit the database.ini inside the docker after it is running and set your connection informations.
+Or run docker accessing the terminal and set your connection informations.
 
 To procced that, you may run the docker:
 
 ```
 docker run -it storeprice sh
 ```
-And just run these commands:
+And just run these commands to create the database.ini file setting your values:
 ```
 echo "[postgresql]" > database.ini
 echo "host=localhost" >> database.ini
+echo "port=5432" >> database.ini
 echo "database=bitcointoyou" >> database.ini
 echo "user=postgres" >> database.ini
 echo "password=postgres" >> database.ini
