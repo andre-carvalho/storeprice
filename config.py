@@ -1,8 +1,25 @@
 #!/usr/bin/python
 from configparser import ConfigParser
- 
- 
+import os
+
 def config(filename='database.ini', section='postgresql'):
+    
+    # Test if database.ini exists
+    if not os.path.exists(filename):
+        # get connection params from env vars
+        host = os.getenv('HOST', 'localhost')
+        port = os.getenv('PORT', 5432)
+        database = os.getenv('DBNAME', 'bitcointoyou')
+        username = os.getenv('DBUSER', 'postgres')
+        password = os.getenv('DBPASS', 'postgres')
+        with open(filename, "w") as configfile:
+            print("[postgresql]", file=configfile)
+            print("host={}".format(host), file=configfile)
+            print("port={}".format(port), file=configfile)
+            print("database={}".format(database), file=configfile)
+            print("user={}".format(username), file=configfile)
+            print("password={}".format(password), file=configfile)
+
     # create a parser
     parser = ConfigParser()
     # read config file

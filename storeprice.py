@@ -1,19 +1,13 @@
 import postgresdb
 import time
-import os
 import sys
-# the libbitcointoyou dir contains bitcointoyou.py
-sys.path.append('./libbitcointoyou')
-import bitcointoyou
+import os
 
-"""
-select tb1.id, tb1.last, tb2.sample_date, tb2.sample_time from (
-select max(bitcoin_price_id) as id, last from bitcoin_price group by last
-) as tb1, (
-select bitcoin_price_id as id, sample_time, sample_date from bitcoin_price) as tb2
-where tb1.id=tb2.id
-order by tb2.sample_date, tb2.sample_time
-"""
+base_dir = os.path.dirname(__file__) or '.'
+# Insert the libbitcointoyou directory at the front of the path.
+libbitcointoyou = os.path.join(base_dir, 'libbitcointoyou')
+sys.path.insert(0, libbitcointoyou)
+import bitcointoyou
 
 def app():
     api_key = ''
@@ -21,13 +15,29 @@ def app():
 
     btc = bitcointoyou.API(api_key, api_pass)
     def getTicker():
-        tick = btc.Ticker() 
-        if tick is not None:
-            db = postgresdb.bitcoinDAO()
-            db.connect()
-            db.insertData(tick)
-            db.close()
-        time.sleep(60)
+        # default sleep time (60 seconds)
+        t = os.getenv('SAMPLE_TIME', 60)
+
+        try:
+            tick = btc.Ticker()
+
+            if tick is not None:
+                try:
+                    db = postgresdb.bitcoinDAO()
+                    db.connect()
+                    #db.insertData(tick)
+                except Exception as error:
+                    print(error)
+                    print('The database connect parameters are ok?')
+                finally:
+                    db.close()
+
+        except Exception as error:
+            print(error)
+            # less time to retry
+            t = 10
+        
+        time.sleep(t)
     
     while True:
         getTicker()

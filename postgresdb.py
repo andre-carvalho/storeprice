@@ -16,13 +16,15 @@ class bitcoinDAO:
     
     def __init__(self):
         # read connection parameters
-        self.params = config()
+        try:
+            self.params = config()
+        except Exception as configError:
+            raise configError
 
     def connect(self):
         self.conn = None
         try:
             # connect to the PostgreSQL server
-            print('Connecting to the PostgreSQL database...')
             self.conn = psycopg2.connect(**self.params)
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
@@ -31,7 +33,6 @@ class bitcoinDAO:
         # disconnect from the PostgreSQL server
         if self.conn is not None:
             self.conn.close()
-            print('Database connection closed.')
 
     def createTable(self):
         table = """
@@ -63,9 +64,9 @@ class bitcoinDAO:
             self.conn.commit()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+            raise error
         except (BaseException) as error:
-            print(error)
+            raise error
 
     def insertData(self, tick):
         table = """
@@ -89,6 +90,6 @@ class bitcoinDAO:
             self.conn.commit()
 
         except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
+            raise error
         except (BaseException) as error:
-            print(error)
+            raise error
