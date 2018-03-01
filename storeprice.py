@@ -2,18 +2,13 @@ import postgresdb
 import time
 import sys
 import os
-
-base_dir = os.path.dirname(__file__) or '.'
-# Insert the libbitcointoyou directory at the front of the path.
-libbitcointoyou = os.path.join(base_dir, 'libbitcointoyou')
-sys.path.insert(0, libbitcointoyou)
-import bitcointoyou
+from libbitcointoyou.bitcointoyou import API
 
 def app():
     api_key = ''
     api_pass = ''
 
-    btc = bitcointoyou.API(api_key, api_pass)
+    btc = API(api_key, api_pass)
     def getTicker():
         # default sleep time (60 seconds)
         t = os.getenv('SAMPLE_TIME', 60)
