@@ -55,7 +55,7 @@ class appStore:
             print(error)
             self.sleepTimeBackup = self.sleepTime
             self.sleepTime = 10
-            raise AppStoreError('Function: storeTransactions','failure on get orders from API')
+            """raise AppStoreError('Function: storeTransactions','failure on get orders from API')"""
 
 
     def storeTicker(self):
@@ -77,7 +77,7 @@ class appStore:
             print(error)
             self.sleepTimeBackup = self.sleepTime
             self.sleepTime = 10
-            raise AppStoreError('Function: storeTicker','failure on get ticker from API')
+            """raise AppStoreError('Function: storeTicker','failure on get ticker from API')"""
     
     def run(self):
         while True:
