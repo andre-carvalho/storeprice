@@ -1,0 +1,8 @@
+[postgresql]
+host=localhost
+database=bitcointoyou
+user=postgres
+password=postgres
+[exchange]
+api_key=get_it_from_exchange
+secrete_key=get_it_from_exchange
