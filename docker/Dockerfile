@@ -3,12 +3,15 @@ FROM python:3.6-alpine
 LABEL maintainer="afacarvalho@yahoo.com.br"
 
 RUN apk upgrade
-RUN apk add --update \
+RUN apk add --no-cache --update \
     git \
     gcc \
     python-dev \
     musl-dev \
-    postgresql-dev
+    postgresql-dev \
+    tzdata
+
+ENV TZ=America/Sao_Paulo
 
 WORKDIR /usr/local
 
