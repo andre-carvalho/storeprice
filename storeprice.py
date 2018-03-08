@@ -20,7 +20,6 @@ class appStore:
     def __init__(self):
         # default sleep time (60 seconds)
         self.sleepTime = os.getenv('SAMPLE_TIME', 60)
-        self.sleepTimeBackup = None
         self.btc = API()
 
     def storeTransactions(self):
@@ -53,9 +52,7 @@ class appStore:
 
         except Exception as error:
             print(error)
-            self.sleepTimeBackup = self.sleepTime
-            self.sleepTime = 10
-            """raise AppStoreError('Function: storeTransactions','failure on get orders from API')"""
+            raise AppStoreError('Function: storeTransactions','failure on get orders from API')
 
 
     def storeTicker(self):
@@ -74,20 +71,19 @@ class appStore:
                     db.close()
 
         except Exception as error:
-            print(error)
-            self.sleepTimeBackup = self.sleepTime
-            self.sleepTime = 10
-            """raise AppStoreError('Function: storeTicker','failure on get ticker from API')"""
+            raise AppStoreError('Function: storeTicker','failure on get ticker from API')
     
     def run(self):
         while True:
-            self.storeTicker()
-            time.sleep(1)
-            self.storeTransactions()
-            time.sleep(self.sleepTime)
-            if self.sleepTimeBackup is not None:
-                self.sleepTime = self.sleepTimeBackup
-                self.sleepTimeBackup = None
+            try:
+                self.storeTicker()
+                time.sleep(1)
+                self.storeTransactions()
+                time.sleep(self.sleepTime)
+            except AppStoreError as error:
+                print(error)
+                time.sleep(10)
+                
 
 if __name__ == "__main__":
     app = appStore()
